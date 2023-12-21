@@ -3,8 +3,8 @@ Get your top tracks and artists since the genesis of your Spotify account.
 
 ## Set up 
 
-On your computer, create a new `spotifywrappedextended` directory. Inside this directoru, create: 
-* a `spotify_raw_data` subdirectory - this is where you will put your individual `Streaming_History` json files
+On your computer, create a new `spotifywrappedextended` directory. Inside this directory, create: 
+* a `spotify_raw_data` subdirectory - this is where you will put your individual `Streaming_History` JSON files
 * a `tests` subdirectory - this is where your Extended Wrapped files will be downloaded (as .csv)
 
 Go to your personal Spotify account, in the [privacy settings](https://www.spotify.com/us/account/privacy/). Request your **Extended streaming history**. It should be sent to you by email 30 days or so later. 
