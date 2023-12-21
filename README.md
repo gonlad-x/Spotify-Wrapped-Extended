@@ -1,6 +1,10 @@
 # Spotify-Wrapped-Extended
 Get your top tracks and artists since the genesis of your Spotify account. 
 
+## Prerequisites
+
+You need to have installed **Python** on your machine, as well as the [pandas](https://pandas.pydata.org/pandas-docs/stable/getting_started/install.html) library. 
+
 ## Set up 
 
 On your computer, create a new `spotifywrappedextended` directory. Inside this directory, create: 
@@ -9,7 +13,7 @@ On your computer, create a new `spotifywrappedextended` directory. Inside this d
 
 Go to your personal Spotify account, in the [privacy settings](https://www.spotify.com/us/account/privacy/). Request your **Extended streaming history**. It should be sent to you by email 30 days or so later. 
 
-Once you ahve received your **Extended streaming history** (**not** your Account data), extract the files in the `spotify_raw_data` subdirectory you created previously. 
+Once you have received your **Extended streaming history** (**not** your Account data), extract the files in the `spotify_raw_data` subdirectory you created previously. 
 
 ## Usage
 
