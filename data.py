@@ -17,6 +17,7 @@ def create_dataframe(data):
     return pd.DataFrame(data)
 
 df = create_dataframe(data=read_json_data('spotify_raw_data'))
+df = df.dropna(subset=['master_metadata_track_name'])
 
 grouped_bytrack_df = df.groupby('spotify_track_uri').agg(
     count = ('spotify_track_uri', 'count'),
@@ -53,7 +54,7 @@ df['year_month'] = df['ts'].dt.to_period('M') #Add a new column containing the y
 monthly_df = df.groupby('year_month').agg(
     total_ms_played=('ms_played', 'sum'),  
     total_count=('spotify_track_uri', 'count'),  
-    top_track_by_ms_played=('spotify_track_uri', lambda x: x.value_counts().idxmax()),  
+    top_track_by_ms_played=('master_metadata_track_name', lambda x: x.value_counts().idxmax()),  
     top_artist_by_ms_played=('master_metadata_album_artist_name', lambda x: x.value_counts().idxmax())  
 ).reset_index()
 monthly_df.to_csv('./tests/monthly_output.csv', index=False)
