@@ -1,4 +1,7 @@
 # Spotify Wrapped Extended
+
+![librewolf_Af6iVmkgmh](https://github.com/gonlad-x/Spotify-Wrapped-Extended/assets/119890139/40e4972c-9be0-49da-8633-4b0b93948742)
+
 Get your top tracks and artists since the genesis of your Spotify account. 
 
 ## Prerequisites
