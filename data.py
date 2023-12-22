@@ -1,6 +1,7 @@
 import pandas as pd 
 import json
 import os 
+import matplotlib.pyplot as plt
 
 def read_json_data(folder_path, encoding = 'utf-8'):
     data = []
@@ -16,6 +17,7 @@ def create_dataframe(data):
     return pd.DataFrame(data)
 
 df = create_dataframe(data=read_json_data('spotify_raw_data'))
+df = df.dropna(subset=['master_metadata_track_name'])
 
 grouped_bytrack_df = df.groupby('spotify_track_uri').agg(
     count = ('spotify_track_uri', 'count'),
@@ -46,3 +48,25 @@ top_ms_played_byartist_df.to_csv('./tests/top_ms_played_byartist_output.csv', in
 #    master_track_name=('master_metadata_track_name', 'first')
 #).reset_index()
 #sorted_radiohead_df.to_csv('./tests/radiohead_output.csv', index=False)
+
+df['ts'] = pd.to_datetime(df['ts']) #Convert the ts column into datetime format 
+df['year_month'] = df['ts'].dt.to_period('M') #Add a new column containing the year & month, e.g. transforming '2015-12-11T18:04:19Z' into '2015-12' 
+monthly_df = df.groupby('year_month').agg(
+    total_ms_played=('ms_played', 'sum'),  
+    total_count=('spotify_track_uri', 'count'),  
+    top_track_by_ms_played=('master_metadata_track_name', lambda x: x.value_counts().idxmax()),  
+    top_artist_by_ms_played=('master_metadata_album_artist_name', lambda x: x.value_counts().idxmax())  
+).reset_index()
+monthly_df.to_csv('./tests/monthly_output.csv', index=False)
+
+# Plotting the graph
+monthly_df['total_hours_played'] = monthly_df['total_ms_played']/3600000
+x_labels = monthly_df['year_month'].astype(str)
+plt.figure(figsize=(10, 6)) 
+plt.plot(x_labels, monthly_df['total_hours_played'], marker='o', linestyle='-')
+plt.title('Total hours played per month')  
+plt.xlabel('Month')  
+plt.ylabel('Total hours played')  
+plt.xticks(rotation=45)  
+plt.tight_layout()  
+plt.show()  
